@@ -1,0 +1,18 @@
+[
+  {
+    "username": "john_doe",
+    "email": "john@example.com",
+    "password": "123456",
+    "googleId": null,
+    "phoneNumber": "081234567890",
+    "address": "Jakarta, Indonesia"
+  },
+  {
+    "username": "sarah_tech",
+    "email": "sarah@example.com",
+    "password": "123456",
+    "googleId": "google-uid-987654321",
+    "phoneNumber": "089876543210",
+    "address": "Bandung, Indonesia"
+  }
+]

@@ -1,0 +1,431 @@
+[
+  {
+    "name": "MacBook Air M2",
+    "price": 18000000,
+    "qty": 10,
+    "description": "Lightweight laptop with powerful performance",
+    "imageUrl": "https://picsum.photos/200",
+    "CategoryId": 1,
+    "BrandId": 1,
+    "UserId": 1
+  },
+  {
+    "name": "Dell XPS 13",
+    "price": 17500000,
+    "qty": 8,
+    "description": "Premium ultrabook with sleek design",
+    "imageUrl": "https://picsum.photos/201",
+    "CategoryId": 1,
+    "BrandId": 3,
+    "UserId": 2
+  },
+  {
+    "name": "Asus ROG Strix Laptop",
+    "price": 22000000,
+    "qty": 5,
+    "description": "Gaming laptop with high performance GPU",
+    "imageUrl": "https://picsum.photos/202",
+    "CategoryId": 1,
+    "BrandId": 6,
+    "UserId": 1
+  },
+  {
+    "name": "Logitech Wireless Mouse",
+    "price": 250000,
+    "qty": 50,
+    "description": "Ergonomic wireless mouse",
+    "imageUrl": "https://picsum.photos/203",
+    "CategoryId": 2,
+    "BrandId": 9,
+    "UserId": 2
+  },
+  {
+    "name": "Razer Gaming Keyboard",
+    "price": 1500000,
+    "qty": 20,
+    "description": "RGB mechanical gaming keyboard",
+    "imageUrl": "https://picsum.photos/204",
+    "CategoryId": 2,
+    "BrandId": 10,
+    "UserId": 1
+  },
+  {
+    "name": "iPhone 14 Pro",
+    "price": 20000000,
+    "qty": 12,
+    "description": "Flagship Apple smartphone",
+    "imageUrl": "https://picsum.photos/205",
+    "CategoryId": 3,
+    "BrandId": 1,
+    "UserId": 2
+  },
+  {
+    "name": "Samsung Galaxy S23",
+    "price": 15000000,
+    "qty": 15,
+    "description": "High-end Android smartphone",
+    "imageUrl": "https://picsum.photos/206",
+    "CategoryId": 3,
+    "BrandId": 2,
+    "UserId": 1
+  },
+  {
+    "name": "iPad Air",
+    "price": 9000000,
+    "qty": 10,
+    "description": "Portable tablet for productivity",
+    "imageUrl": "https://picsum.photos/207",
+    "CategoryId": 4,
+    "BrandId": 1,
+    "UserId": 2
+  },
+  {
+    "name": "Samsung Galaxy Tab",
+    "price": 8000000,
+    "qty": 9,
+    "description": "Android tablet for multimedia",
+    "imageUrl": "https://picsum.photos/208",
+    "CategoryId": 4,
+    "BrandId": 2,
+    "UserId": 1
+  },
+  {
+    "name": "Sony WH-1000XM5",
+    "price": 5000000,
+    "qty": 7,
+    "description": "Noise cancelling headphones",
+    "imageUrl": "https://picsum.photos/209",
+    "CategoryId": 5,
+    "BrandId": 15,
+    "UserId": 2
+  },
+
+  {
+    "name": "JBL Flip Speaker",
+    "price": 1200000,
+    "qty": 25,
+    "description": "Portable Bluetooth speaker",
+    "imageUrl": "https://picsum.photos/210",
+    "CategoryId": 5,
+    "BrandId": 14,
+    "UserId": 1
+  },
+  {
+    "name": "Apple Watch Series 9",
+    "price": 7000000,
+    "qty": 6,
+    "description": "Smartwatch with health tracking",
+    "imageUrl": "https://picsum.photos/211",
+    "CategoryId": 6,
+    "BrandId": 1,
+    "UserId": 2
+  },
+  {
+    "name": "Xiaomi Smart Band",
+    "price": 500000,
+    "qty": 40,
+    "description": "Affordable fitness tracker",
+    "imageUrl": "https://picsum.photos/212",
+    "CategoryId": 6,
+    "BrandId": 17,
+    "UserId": 1
+  },
+  {
+    "name": "TP-Link Router",
+    "price": 800000,
+    "qty": 18,
+    "description": "High-speed WiFi router",
+    "imageUrl": "https://picsum.photos/213",
+    "CategoryId": 7,
+    "BrandId": 21,
+    "UserId": 2
+  },
+  {
+    "name": "Netgear Nighthawk Router",
+    "price": 2500000,
+    "qty": 10,
+    "description": "Advanced gaming router",
+    "imageUrl": "https://picsum.photos/214",
+    "CategoryId": 7,
+    "BrandId": 23,
+    "UserId": 1
+  },
+  {
+    "name": "SteelSeries Gaming Mouse",
+    "price": 900000,
+    "qty": 22,
+    "description": "High precision gaming mouse",
+    "imageUrl": "https://picsum.photos/215",
+    "CategoryId": 8,
+    "BrandId": 12,
+    "UserId": 2
+  },
+  {
+    "name": "Corsair Gaming Headset",
+    "price": 1100000,
+    "qty": 15,
+    "description": "Surround sound headset",
+    "imageUrl": "https://picsum.photos/216",
+    "CategoryId": 8,
+    "BrandId": 11,
+    "UserId": 1
+  },
+  {
+    "name": "Nike Hoodie",
+    "price": 600000,
+    "qty": 30,
+    "description": "Comfortable hoodie",
+    "imageUrl": "https://picsum.photos/217",
+    "CategoryId": 9,
+    "BrandId": 24,
+    "UserId": 2
+  },
+  {
+    "name": "Adidas T-Shirt",
+    "price": 300000,
+    "qty": 40,
+    "description": "Casual wear t-shirt",
+    "imageUrl": "https://picsum.photos/218",
+    "CategoryId": 9,
+    "BrandId": 25,
+    "UserId": 1
+  },
+  {
+    "name": "Uniqlo Jacket",
+    "price": 700000,
+    "qty": 20,
+    "description": "Lightweight jacket",
+    "imageUrl": "https://picsum.photos/219",
+    "CategoryId": 9,
+    "BrandId": 26,
+    "UserId": 2
+  },
+
+  {
+    "name": "Zara Jeans",
+    "price": 800000,
+    "qty": 18,
+    "description": "Stylish denim jeans",
+    "imageUrl": "https://picsum.photos/220",
+    "CategoryId": 9,
+    "BrandId": 27,
+    "UserId": 1
+  },
+  {
+    "name": "H&M Shirt",
+    "price": 250000,
+    "qty": 35,
+    "description": "Casual shirt",
+    "imageUrl": "https://picsum.photos/221",
+    "CategoryId": 9,
+    "BrandId": 28,
+    "UserId": 2
+  },
+  {
+    "name": "Puma Sneakers",
+    "price": 900000,
+    "qty": 25,
+    "description": "Sport sneakers",
+    "imageUrl": "https://picsum.photos/222",
+    "CategoryId": 10,
+    "BrandId": 29,
+    "UserId": 1
+  },
+  {
+    "name": "New Balance Shoes",
+    "price": 1200000,
+    "qty": 20,
+    "description": "Comfortable running shoes",
+    "imageUrl": "https://picsum.photos/223",
+    "CategoryId": 10,
+    "BrandId": 30,
+    "UserId": 2
+  },
+
+  {
+    "name": "Lenovo ThinkPad X1",
+    "price": 20000000,
+    "qty": 7,
+    "description": "Business laptop",
+    "imageUrl": "https://picsum.photos/224",
+    "CategoryId": 1,
+    "BrandId": 5,
+    "UserId": 1
+  },
+  {
+    "name": "HP Pavilion Laptop",
+    "price": 12000000,
+    "qty": 10,
+    "description": "Affordable performance laptop",
+    "imageUrl": "https://picsum.photos/225",
+    "CategoryId": 1,
+    "BrandId": 4,
+    "UserId": 2
+  },
+  {
+    "name": "Acer Predator Laptop",
+    "price": 21000000,
+    "qty": 6,
+    "description": "High-end gaming laptop",
+    "imageUrl": "https://picsum.photos/226",
+    "CategoryId": 1,
+    "BrandId": 7,
+    "UserId": 1
+  },
+  {
+    "name": "Microsoft Surface Laptop",
+    "price": 19000000,
+    "qty": 5,
+    "description": "Premium Windows laptop",
+    "imageUrl": "https://picsum.photos/227",
+    "CategoryId": 1,
+    "BrandId": 8,
+    "UserId": 2
+  },
+
+  {
+    "name": "HyperX Gaming Keyboard",
+    "price": 1300000,
+    "qty": 15,
+    "description": "Mechanical keyboard",
+    "imageUrl": "https://picsum.photos/228",
+    "CategoryId": 2,
+    "BrandId": 13,
+    "UserId": 1
+  },
+  {
+    "name": "Logitech Webcam",
+    "price": 900000,
+    "qty": 12,
+    "description": "HD webcam for streaming",
+    "imageUrl": "https://picsum.photos/229",
+    "CategoryId": 2,
+    "BrandId": 9,
+    "UserId": 2
+  },
+  {
+    "name": "Samsung Earbuds",
+    "price": 2000000,
+    "qty": 18,
+    "description": "Wireless earbuds",
+    "imageUrl": "https://picsum.photos/230",
+    "CategoryId": 5,
+    "BrandId": 2,
+    "UserId": 1
+  },
+  {
+    "name": "Bose SoundLink Speaker",
+    "price": 3500000,
+    "qty": 10,
+    "description": "Premium speaker",
+    "imageUrl": "https://picsum.photos/231",
+    "CategoryId": 5,
+    "BrandId": 16,
+    "UserId": 2
+  },
+
+  {
+    "name": "Realme Smartphone",
+    "price": 4000000,
+    "qty": 20,
+    "description": "Affordable smartphone",
+    "imageUrl": "https://picsum.photos/232",
+    "CategoryId": 3,
+    "BrandId": 19,
+    "UserId": 1
+  },
+  {
+    "name": "OnePlus Smartphone",
+    "price": 8000000,
+    "qty": 12,
+    "description": "Fast performance phone",
+    "imageUrl": "https://picsum.photos/233",
+    "CategoryId": 3,
+    "BrandId": 20,
+    "UserId": 2
+  },
+
+  {
+    "name": "Gaming Chair",
+    "price": 2500000,
+    "qty": 10,
+    "description": "Ergonomic chair",
+    "imageUrl": "https://picsum.photos/234",
+    "CategoryId": 8,
+    "BrandId": 11,
+    "UserId": 1
+  },
+  {
+    "name": "Office Desk",
+    "price": 1500000,
+    "qty": 8,
+    "description": "Minimalist desk",
+    "imageUrl": "https://picsum.photos/235",
+    "CategoryId": 8,
+    "BrandId": 11,
+    "UserId": 2
+  },
+
+  {
+    "name": "Smart TV 55 Inch",
+    "price": 8000000,
+    "qty": 9,
+    "description": "4K UHD Smart TV",
+    "imageUrl": "https://picsum.photos/236",
+    "CategoryId": 5,
+    "BrandId": 2,
+    "UserId": 1
+  },
+  {
+    "name": "Bluetooth Keyboard",
+    "price": 400000,
+    "qty": 25,
+    "description": "Portable keyboard",
+    "imageUrl": "https://picsum.photos/237",
+    "CategoryId": 2,
+    "BrandId": 9,
+    "UserId": 2
+  },
+
+  {
+    "name": "Running Shorts",
+    "price": 200000,
+    "qty": 40,
+    "description": "Lightweight shorts",
+    "imageUrl": "https://picsum.photos/238",
+    "CategoryId": 9,
+    "BrandId": 24,
+    "UserId": 1
+  },
+  {
+    "name": "Casual Sneakers",
+    "price": 500000,
+    "qty": 30,
+    "description": "Everyday sneakers",
+    "imageUrl": "https://picsum.photos/239",
+    "CategoryId": 10,
+    "BrandId": 25,
+    "UserId": 2
+  },
+
+  {
+    "name": "Tablet Stand",
+    "price": 150000,
+    "qty": 50,
+    "description": "Adjustable stand",
+    "imageUrl": "https://picsum.photos/240",
+    "CategoryId": 2,
+    "BrandId": 9,
+    "UserId": 1
+  },
+  {
+    "name": "Laptop Sleeve",
+    "price": 200000,
+    "qty": 45,
+    "description": "Protective sleeve",
+    "imageUrl": "https://picsum.photos/241",
+    "CategoryId": 2,
+    "BrandId": 9,
+    "UserId": 2
+  }
+]
