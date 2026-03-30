@@ -23,9 +23,15 @@ class AuthController {
   static async login(req, res, next) {
     try {
       const { email, password } = req.body
-      
+      if (!email) throw { name: "BadRequest", message: "Email is required" }
+      if (!password) throw { name: "BadRequest", message: "Password is required" }
+
       const user = await User.findOne({ where: { email } })
-      
+      if (!user) throw { name: "Unauthorized", message: "Invalid email/password" }
+
+      const verifyPassword = comparePassword(password, user.password)
+      if (!verifyPassword) throw { name: "Unauthorized", message: "Invalid email/password" }
+
       const access_token = verifyToken({
         id: user.id,
         email: user.email,
