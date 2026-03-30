@@ -1,3 +1,7 @@
+const {User} = require("../models")
+const {comparePassword} = require("../helpers/bcrypt")
+const {verifyToken} = require("../helpers/jwt")
+
 class AuthController {
   static async register(req, res, next) {
     try {
@@ -18,7 +22,15 @@ class AuthController {
 
   static async login(req, res, next) {
     try {
-    
+      const { email, password } = req.body
+      
+      const user = await User.findOne({ where: { email } })
+      
+      const access_token = verifyToken({
+        id: user.id,
+        email: user.email,
+      })
+      res.status(200).json({ access_token })
     } catch (error) {
       next(error);
     }
