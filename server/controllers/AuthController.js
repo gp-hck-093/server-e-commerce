@@ -1,6 +1,6 @@
 const {User} = require("../models")
 const {comparePassword} = require("../helpers/bcrypt")
-const {verifyToken} = require("../helpers/jwt")
+const {generateToken} = require("../helpers/jwt")
 
 class AuthController {
   static async register(req, res, next) {
@@ -32,7 +32,7 @@ class AuthController {
       const verifyPassword = comparePassword(password, user.password)
       if (!verifyPassword) throw { name: "Unauthorized", message: "Invalid email/password" }
 
-      const access_token = verifyToken({
+      const access_token = generateToken({
         id: user.id,
         email: user.email,
       })
