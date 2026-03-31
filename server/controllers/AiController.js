@@ -25,7 +25,6 @@ class AiController {
     static async seedDatabase(req, res, next) {
         try {
             const products = await Product.findAll({
-                limit: 30, // Dibatasi 30 produk saja untuk menghindari error Rate Limit HF
                 include: [
                     { model: Category, attributes: ["name"] },
                     { model: Brand, attributes: ["name"] }
@@ -52,6 +51,9 @@ class AiController {
                 // Insert into our vectorService
                 await insert(product.id, embedding, metadata);
                 count++;
+                
+                // Jeda 200 milidetik antar request agar Hugging Face gratisan tidak mem-blokir IP kita (Rate Limit 429)
+                await new Promise(resolve => setTimeout(resolve, 200));
             }
 
             res.status(200).json({ 
