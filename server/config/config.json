@@ -1,21 +1,21 @@
 {
   "development": {
     "username": "postgres",
-    "password": "postgres",
+    "password": "ridwancoding",
     "database": "gp_db",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": "postgres",
+    "password": "ridwancoding",
     "database": "gp_db_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
     "username": "root",
-    "password": null,
+    "password": "ridwancoding",
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"

@@ -10,5 +10,5 @@ router.get("/", OrderController.getOrders);
 
 // Get order detail
 router.get("/:id", OrderController.getOrderById);
-
+router.post("/:id/payment", OrderController.getSnapToken);
 module.exports = router;

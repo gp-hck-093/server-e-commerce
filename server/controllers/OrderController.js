@@ -155,7 +155,9 @@ class OrderController {
         throw { name: "Unauthorized", message: "Invalid signature" };
       }
 
-      const order = await Order.findByPk(order_id);
+      // ← PARSE order_id, handle format "7" maupun "7-1234567890"
+      const actualOrderId = order_id.toString().split("-")[0];
+      const order = await Order.findByPk(actualOrderId);
 
       if (!order) {
         return res.status(200).json({ message: "Order not found" });
@@ -191,6 +193,36 @@ class OrderController {
       await Order.update({ status: orderStatus }, { where: { id: order.id } });
 
       res.status(200).json({ message: "Webhook processed" });
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async getSnapToken(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { id: userId, email } = req.user;
+
+      const order = await Order.findByPk(id, {
+        include: [Payment],
+      });
+
+      if (!order) throw { name: "NotFound", message: "Order not found" };
+      if (order.UserId !== userId) throw { name: "Forbidden" };
+      if (order.status !== "pending") {
+        throw { name: "BadRequest", message: "Order already paid" };
+      }
+
+      const parameter = {
+        transaction_details: {
+          order_id: `${order.id}-${Date.now()}`, // unik biar ga bentrok di Midtrans
+          gross_amount: order.totalPrice,
+        },
+        customer_details: { email },
+      };
+
+      const transaction = await snap.createTransaction(parameter);
+
+      res.status(200).json({ snapToken: transaction.token });
     } catch (error) {
       next(error);
     }
