@@ -1,6 +1,20 @@
 const app = require("../app");
 const port = process.env.PORT || 3000;
+const http = require("http");
+const { Server } = require("socket.io");
+const chatSocket = require("../sockets/chatSocket");
 
-app.listen(port, () => {
+const server = http.createServer(app);
+
+const io = new Server(server, {
+    cors: {
+        origin: "*", 
+        methods: ["GET", "POST"]
+    }
+});
+
+chatSocket(io);
+
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
