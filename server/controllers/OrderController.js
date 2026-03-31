@@ -195,6 +195,43 @@ class OrderController {
       next(error);
     }
   }
+
+  static async payOrder(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { id: userId } = req.user;
+
+      const order = await Order.findByPk(id);
+
+      if (!order) {
+        throw { name: "NotFound", message: "Order not found" };
+      }
+
+      // 🔐 ownership check
+      if (order.UserId !== userId) {
+        throw { name: "Forbidden", message: "Not authorized" };
+      }
+
+      if (order.status !== "pending") {
+        throw { name: "BadRequest", message: "Order already processed" };
+      }
+
+      const parameter = {
+        transaction_details: {
+          order_id: String(order.id),
+          gross_amount: order.totalPrice,
+        },
+      };
+
+      const transaction = await snap.createTransaction(parameter);
+
+      res.status(200).json({
+        snapToken: transaction.token,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = OrderController;
