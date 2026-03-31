@@ -4,6 +4,7 @@ const authentication = require("../middlewares/authentication");
 
 const authRoutes = require("./auth");
 const productsRoutes = require("./products");
+const aiRoutes = require("./ai");
 const cartsRoutes = require("./carts");
 const ordersRoutes = require("./orders");
 const OrderController = require("../controllers/OrderController");
@@ -11,6 +12,7 @@ const OrderController = require("../controllers/OrderController");
 // PUBLIC ROUTES
 router.use("/auth", authRoutes);
 router.use("/products", productsRoutes);
+router.use("/ai", aiRoutes);
 
 // Midtrans webhook
 router.post("/orders/webhook", OrderController.midtransWebhook);
