@@ -7,13 +7,13 @@ class AiController {
     // Standard chat endpoint formatting
     static async chat(req, res, next) {
         try {
-            const { message, imageUrl } = req.body;
+            const { message, imageUrl, userId } = req.body;
             
             if (!message) {
                 return res.status(400).json({ message: "Message is required" });
             }
 
-            const response = await processUserMessage(message, imageUrl);
+            const response = await processUserMessage(message, imageUrl, userId);
             
             res.status(200).json({ response });
         } catch (error) {
@@ -25,6 +25,7 @@ class AiController {
     static async seedDatabase(req, res, next) {
         try {
             const products = await Product.findAll({
+                limit: 30, // Dibatasi 30 produk saja untuk menghindari error Rate Limit HF
                 include: [
                     { model: Category, attributes: ["name"] },
                     { model: Brand, attributes: ["name"] }

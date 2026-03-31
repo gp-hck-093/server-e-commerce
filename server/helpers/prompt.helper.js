@@ -4,6 +4,7 @@ function buildPrompt(question, contextData = [], imageAnalysis = null) {
     if (contextData.length > 0) {
         contextData.forEach((product, index) => {
             contextStr += `\n[Product ${index + 1}]\n`;
+            contextStr += `ID: ${product.id}\n`;
             contextStr += `Name: ${product.name || 'N/A'}\n`;
             contextStr += `Price: ${product.price ? `$${product.price}` : 'N/A'}\n`;
             contextStr += `Description: ${product.description || 'N/A'}\n`;
@@ -24,10 +25,18 @@ RULES:
 2. DO NOT hallucinate products, features, or prices that are not explicitly provided.
 3. Keep your answers concise, clear, and focused on helping the user buy.
 4. If an image is provided, incorporate its details into your response contextually.
-5. Provide details formatted clearly with product name, price, and description.
+5. If the user explicitly asks to BUY or ADD TO CART a specific product from the context, set "action" to "ADD_CART" and "productId" to the product's ID. Otherwise, "action" is "CHAT" and "productId" is null.
+6. YOU MUST ONLY RESPOND WITH A VALID RAW JSON OBJECT. NO MARKDOWN, NO OTHER TEXT.
+
+FORMAT MUST EXACTLY BE:
+{
+  "answer": "Your detailed standard text response here",
+  "action": "CHAT" | "ADD_CART",
+  "productId": 123 | null
+}
     `;
 
-    return `${systemInstructions}\n${contextStr}${imageContext}\nUSER QUESTION: ${question}\n\nAI RESPONSE:`;
+    return `${systemInstructions}\n${contextStr}${imageContext}\nUSER QUESTION: ${question}\n\nAI RESPONSE (JSON ONLY):`;
 }
 
 module.exports = {

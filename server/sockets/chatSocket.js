@@ -8,12 +8,13 @@ module.exports = (io) => {
 
         socket.on('chat:message', async (data) => {
             try {
-                const { message, imageUrl } = data;
+                // Asumsikan client mengirim userId juga, misal { message: '...', userId: 1 }
+                const { message, imageUrl, userId } = data;
                 
                 // Emitting typing event immediately
                 socket.emit('chat:typing');
                 
-                const aiResponse = await processUserMessage(message, imageUrl);
+                const aiResponse = await processUserMessage(message, imageUrl, userId);
                 
                 socket.emit('chat:response', {
                     response: aiResponse
