@@ -13,4 +13,7 @@ router.get("/", OrderController.getOrders);
 // Get order detail
 router.get("/:id", OrderController.getOrderById);
 
+// Cancel order
+router.patch("/:id/cancel", OrderController.cancelOrder);
+
 module.exports = router;
