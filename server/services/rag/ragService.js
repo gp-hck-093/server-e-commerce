@@ -33,7 +33,7 @@ async function processUserMessage(message, imageUrl = null, userId = null) {
         
         let parsedCommand;
         try {
-            // Bersihkan Markdown JSON tick dari response Gemini
+            
             const cleanJsonStr = aiResponse.replace(/```json/gi, '').replace(/```/gi, '').trim();
             parsedCommand = JSON.parse(cleanJsonStr);
         } catch (err) {
@@ -41,7 +41,7 @@ async function processUserMessage(message, imageUrl = null, userId = null) {
             return aiResponse;
         }
 
-        // Cek apakah instruksi AI = masukin ke keranjang!
+       
         if (parsedCommand.action === "ADD_CART" && parsedCommand.productId && userId) {
             try {
                 const product = await Product.findByPk(parsedCommand.productId);
@@ -81,7 +81,7 @@ async function processUserMessage(message, imageUrl = null, userId = null) {
             }
         }
 
-        // Kembalikan jawaban teks bersihnya saja ke User dan daftar produk yang relevan (difilter dari AI)
+       
         return {
             message: parsedCommand.answer || aiResponse,
             products: productsToReturn

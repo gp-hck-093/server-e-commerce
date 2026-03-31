@@ -32,8 +32,7 @@ async function createEmbeddingGemini(text) {
 
 // FUNGSI UTAMA ORKESTRATOR (Otomatis dipakai RAG)
 async function createEmbedding(text) {
-    // Anda bisa mengganti ini sewaktu-waktu di file .env : AI_PROVIDER=huggingface / gemini
-    const provider = process.env.AI_PROVIDER || 'gemini'; // Default ambil gemini karena lebih stabil
+    const provider = process.env.AI_PROVIDER || 'gemini';
     
     if (provider === 'gemini') {
         return await createEmbeddingGemini(text); 
