@@ -1,4 +1,5 @@
 const { hf } = require('./config/huggingface');
+const logger = require('../../helpers/logger');
 
 async function analyzeImage(imageUrl) {
     try {

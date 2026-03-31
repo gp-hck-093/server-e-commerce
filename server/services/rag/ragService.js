@@ -1,4 +1,5 @@
 const { analyzeImage } = require('../ai/imageService');
+const logger = require('../../helpers/logger');
 const { generateChat } = require('../ai/chatService');
 const { createEmbedding } = require('./embeddingService');
 const { similaritySearch } = require('./vectorService');

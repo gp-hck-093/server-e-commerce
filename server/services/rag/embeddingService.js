@@ -1,4 +1,5 @@
 const { hf } = require('../ai/config/huggingface');
+const logger = require('../../helpers/logger');
 
 async function createEmbedding(text) {
     try {

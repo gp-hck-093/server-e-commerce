@@ -1,4 +1,5 @@
 // Extremely simple in-memory vector DB for development
+const logger = require('../../helpers/logger');
 const memoryDB = [];
 
 function cosineSimilarity(vecA, vecB) {

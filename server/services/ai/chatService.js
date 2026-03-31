@@ -1,4 +1,5 @@
 const { geminiModel } = require('./config/gemini');
+const logger = require('../../helpers/logger');
 
 async function generateChat(prompt) {
     try {

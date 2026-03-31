@@ -1,4 +1,5 @@
 const { processUserMessage } = require('../services/rag/ragService');
+const logger = require('../helpers/logger');
 
 module.exports = (io) => {
     io.on('connection', (socket) => {
