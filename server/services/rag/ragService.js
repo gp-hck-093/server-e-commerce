@@ -61,8 +61,31 @@ async function processUserMessage(message, imageUrl = null, userId = null) {
             }
         }
         
-        // Kembalikan jawaban teks bersihnya saja ke User
-        return parsedCommand.answer || aiResponse;
+        let productsToReturn = [];
+        if (parsedCommand.recommendedProductIds && Array.isArray(parsedCommand.recommendedProductIds) && parsedCommand.recommendedProductIds.length > 0) {
+            try {
+                // Fetch the actual products from PostgreSQL so we get correct imageUrl and only the recommended ones
+                const recommended = await Product.findAll({
+                    where: { id: parsedCommand.recommendedProductIds }
+                });
+                
+                productsToReturn = recommended.map(p => ({
+                    id: p.id,
+                    name: p.name,
+                    price: p.price,
+                    image: p.imageUrl || "",
+                    description: p.description
+                }));
+            } catch (dbErr) {
+                logger.error("Failed to fetch recommended products from DB:", dbErr);
+            }
+        }
+
+        // Kembalikan jawaban teks bersihnya saja ke User dan daftar produk yang relevan (difilter dari AI)
+        return {
+            message: parsedCommand.answer || aiResponse,
+            products: productsToReturn
+        };
     } catch (error) {
         // console.error('Error in RAG orchestrator:', error);
         logger.error('Error in RAG orchestrator:', error);
