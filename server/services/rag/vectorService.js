@@ -4,8 +4,7 @@ const logger = require('../../helpers/logger');
 // Init Pinecone Client (pastikan PINECONE_API_KEY ada di .env)
 const pc = new Pinecone({ apiKey: process.env.PINECONE_API_KEY });
 
-// Arahkan ke nama index yang Anda buat (misal: 'ecommerce')
-// PERHATIAN: Pastikan huruf kecil & namanya persis dengan yang di-dashboard
+
 const index = pc.index('ecommerce');
 
 async function insert(id, embedding, metadata) {
