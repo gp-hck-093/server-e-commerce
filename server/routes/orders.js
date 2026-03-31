@@ -5,6 +5,8 @@ const router = require("express").Router();
 // Checkout (create order from cart)
 router.post("/checkout", OrderController.checkout);
 
+router.post("/:id/pay", OrderController.payOrder);
+
 // Get all orders for logged-in user
 router.get("/", OrderController.getOrders);
 
