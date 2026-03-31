@@ -5,10 +5,10 @@ const router = require("express").Router();
 // Get all products
 router.get("/", ProductController.getAllProducts);
 
-// Get product detail
-router.get("/:id", ProductController.getProductById);
-
 router.get("/categories", ProductController.getCategories);
 router.get("/brands", ProductController.getBrands);
+
+// Get product detail
+router.get("/:id", ProductController.getProductById);
 
 module.exports = router;
