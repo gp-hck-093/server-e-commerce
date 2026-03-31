@@ -39,9 +39,16 @@ class CartController {
         where: { UserId: userId, ProductId },
       });
 
+      const addQty = parseInt(qty) || 1;
+
       if (existingCart) {
-        // UPDATE qty (no duplicate)
-        existingCart.qty += qty || 1;
+        // Validation: current cart + new qty should not exceed stock
+        if (existingCart.qty + addQty > product.qty) {
+          throw { name: "BadRequest", message: `Stock not enough. Only ${product.qty} left.` };
+        }
+        
+        // UPDATE qty
+        existingCart.qty += addQty;
         await existingCart.save();
 
         return res.status(200).json({
@@ -50,11 +57,16 @@ class CartController {
         });
       }
 
+      // Check if trying to add more than stock for new item
+      if (addQty > product.qty) {
+        throw { name: "BadRequest", message: `Stock not enough. Only ${product.qty} left.` };
+      }
+
       // Create new cart
       const newCart = await Cart.create({
         UserId: userId,
         ProductId,
-        qty: qty || 1,
+        qty: addQty,
       });
 
       res.status(201).json({
@@ -71,10 +83,16 @@ class CartController {
       const { id } = req.params;
       const { qty } = req.body;
 
-      const cart = await Cart.findByPk(id);
+      const cart = await Cart.findByPk(id, {
+        include: [Product]
+      });
 
       if (!cart) {
         throw { name: "NotFound", message: "Cart not found" };
+      }
+
+      if (qty > cart.Product.qty) {
+        throw { name: "BadRequest", message: `Stock not enough. Only ${cart.Product.qty} left.` };
       }
 
       cart.qty = qty;
