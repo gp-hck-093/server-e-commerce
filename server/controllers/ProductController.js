@@ -104,6 +104,36 @@ class ProductController {
       next(error);
     }
   }
+
+  static async getCategories(req, res, next) {
+    try {
+      const categories = await Category.findAll({
+        attributes: ["id", "name"],
+        order: [["name", "ASC"]],
+      });
+
+      res.status(200).json({
+        data: categories,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getBrands(req, res, next) {
+    try {
+      const brands = await Brand.findAll({
+        attributes: ["id", "name"],
+        order: [["name", "ASC"]],
+      });
+
+      res.status(200).json({
+        data: brands,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = ProductController;
