@@ -64,6 +64,11 @@ module.exports = (sequelize, DataTypes) => {
           notNull: { msg: "Address is required" },
         },
       },
+
+      imageUrl: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       sequelize,
