@@ -5,8 +5,9 @@ const { createEmbedding } = require("./embeddingService");
 const { similaritySearch } = require("./vectorService");
 const { buildPrompt } = require("../../helpers/prompt.helper");
 const { Cart, Product } = require("../../models");
+const { Op } = require("sequelize");
 
-async function processUserMessage(message, imageUrl = null, userId = null) {
+async function processUserMessage(message, imageUrl = null, userId = null, chatHistory = []) {
   try {
     let imageCaption = null;
 
@@ -20,13 +21,52 @@ async function processUserMessage(message, imageUrl = null, userId = null) {
       ? `${message}. Image context: ${imageCaption}`
       : message;
 
-    // 3. Retrieve relevant products via Vector DB
+    // 3. Retrieve relevant products (Hybrid Search)
+    // 3a. Exact/Partial Keyword Search via Database
+    const textToMatch = [message, imageCaption].filter(Boolean).join(" ").toLowerCase();
+    const words = textToMatch.split(/[\s,]+/).filter(w => w.length > 3);
+    let keywordProductsContext = [];
+    
+    if (words.length > 0) {
+      const orConditions = words.map(w => ({
+        name: { [Op.iLike]: `%${w}%` }
+      }));
+      
+      try {
+        const keywordProducts = await Product.findAll({
+          where: { [Op.or]: orConditions },
+          limit: 3
+        });
+        keywordProductsContext = keywordProducts.map(p => ({
+          id: p.id,
+          name: p.name,
+          price: p.price,
+          description: p.description,
+          imageUrl: p.imageUrl // or whatever metadata structure needed
+        }));
+      } catch (err) {
+        logger.error("Keyword search failed:", err);
+      }
+    }
+
+    // 3b. Semantic Search via Vector DB
     const queryEmbedding = await createEmbedding(searchInput);
     const relevantProductsDocs = await similaritySearch(queryEmbedding, 3);
-    const relevantProducts = relevantProductsDocs.map((doc) => doc.metadata);
+    const semanticProductsContext = relevantProductsDocs.map((doc) => doc.metadata);
+
+    // Combine results (prefer keyword matches, then pad with semantic matches, max 5)
+    const combinedMap = new Map();
+    keywordProductsContext.forEach(p => combinedMap.set(p.id, p));
+    semanticProductsContext.forEach(p => {
+        if (!combinedMap.has(p.id)) {
+            combinedMap.set(p.id, p);
+        }
+    });
+    
+    const relevantProducts = Array.from(combinedMap.values()).slice(0, 5);
 
     // 4. Build Prompt
-    const prompt = buildPrompt(message, relevantProducts, imageCaption);
+    const prompt = buildPrompt(message, relevantProducts, imageCaption, chatHistory);
 
     // 5. Call Gemini
     const aiResponse = await generateChat(prompt);
