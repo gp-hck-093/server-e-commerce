@@ -1,24 +1,24 @@
 function buildPrompt(question, contextData = [], imageAnalysis = null) {
-    let contextStr = '--- RELEVANT PRODUCTS ---\n';
-    
-    if (contextData.length > 0) {
-        contextData.forEach((product, index) => {
-            contextStr += `\n[Product ${index + 1}]\n`;
-            contextStr += `ID: ${product.id}\n`;
-            contextStr += `Name: ${product.name || 'N/A'}\n`;
-            contextStr += `Price: ${product.price ? `$${product.price}` : 'N/A'}\n`;
-            contextStr += `Description: ${product.description || 'N/A'}\n`;
-        });
-    } else {
-        contextStr += 'No matching products found in the database.\n';
-    }
+  let contextStr = "--- RELEVANT PRODUCTS ---\n";
 
-    let imageContext = '';
-    if (imageAnalysis) {
-        imageContext = `\n--- RELEVANT IMAGE DATA ---\n${imageAnalysis}\n`;
-    }
+  if (contextData.length > 0) {
+    contextData.forEach((product, index) => {
+      contextStr += `\n[Product ${index + 1}]\n`;
+      contextStr += `ID: ${product.id}\n`;
+      contextStr += `Name: ${product.name || "N/A"}\n`;
+      contextStr += `Price: ${product.price ? `$${product.price}` : "N/A"}\n`;
+      contextStr += `Description: ${product.description || "N/A"}\n`;
+    });
+  } else {
+    contextStr += "No matching products found in the database.\n";
+  }
 
-    const systemInstructions = `
+  let imageContext = "";
+  if (imageAnalysis) {
+    imageContext = `\n--- RELEVANT IMAGE DATA ---\n${imageAnalysis}\n`;
+  }
+
+  const systemInstructions = `
 You are an AI-powered e-commerce assistant.
 RULES:
 1. ONLY recommend or discuss products found in the "RELEVANT PRODUCTS" section below. If no products are listed or they don't match the user's criteria (like price bounds or category), politely inform the user you don't have matching products.
@@ -38,9 +38,9 @@ FORMAT MUST EXACTLY BE:
 }
     `;
 
-    return `${systemInstructions}\n${contextStr}${imageContext}\nUSER QUESTION: ${question}\n\nAI RESPONSE (JSON ONLY):`;
+  return `${systemInstructions}\n${contextStr}${imageContext}\nUSER QUESTION: ${question}\n\nAI RESPONSE (JSON ONLY):`;
 }
 
 module.exports = {
-    buildPrompt
+  buildPrompt,
 };
