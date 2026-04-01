@@ -53,13 +53,19 @@ module.exports = (io) => {
                     });
                     
                     if (existingCart) {
+                        if (existingCart.qty + 1 > product.qty) {
+                            return socket.emit('cart', { success: false, message: `Maaf, stok ${product.name} tidak mencukupi.` });
+                        }
                         existingCart.qty += 1;
                         await existingCart.save();
                     } else {
+                        if (product.qty < 1) {
+                            return socket.emit('cart', { success: false, message: `Maaf, ${product.name} sedang habis.` });
+                        }
                         await Cart.create({ UserId: userId, ProductId: product.id, qty: 1 });
                     }
                     
-                    socket.emit('cart', { success: true, message: `Product added to cart` });
+                    socket.emit('cart', { success: true, message: `${product.name} ditambahkan ke keranjang!` });
                 } else {
                     socket.emit('cart', { success: false, message: 'Product not found' });
                 }
