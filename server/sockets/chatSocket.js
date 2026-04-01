@@ -14,11 +14,12 @@ module.exports = (io) => {
                 const imageUrl = data.imageUrl || null;
                 // Ideally, userId should be obtained from socket authentication (e.g. socket.user.id)
                 const userId = data.userId || null; 
+                const chatHistory = data.chatHistory || [];
                 
                 socket.emit('chat:typing');
                 
                 // processUserMessage returns { message: string, products: [...] }
-                const aiResponse = await processUserMessage(message, imageUrl, userId);
+                const aiResponse = await processUserMessage(message, imageUrl, userId, chatHistory);
                 
                 // Emitting the response back exactly as requested
                 socket.emit('chat', aiResponse);
