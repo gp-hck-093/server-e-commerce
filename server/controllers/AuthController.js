@@ -1,7 +1,10 @@
 const { OAuth2Client } = require("google-auth-library")
-const {User} = require("../models")
-const {comparePassword} = require("../helpers/bcrypt")
-const {generateToken} = require("../helpers/jwt")
+const jwt = require("jsonwebtoken")
+const { User } = require("../models")
+const { comparePassword, hashPassword } = require("../helpers/bcrypt")
+const { generateToken } = require("../helpers/jwt")
+const { sendResetPasswordEmail } = require("../utils/mailer")
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 class AuthController {
   static async register(req, res, next) {
@@ -51,7 +54,13 @@ class AuthController {
       if (!audience) throw { name: "BadRequest", message: "GOOGLE_CLIENT_ID is not set" }
 
       const client = new OAuth2Client(audience)
-      const ticket = await client.verifyIdToken({ idToken: credential, audience })
+      let ticket
+      try {
+        ticket = await client.verifyIdToken({ idToken: credential, audience })
+      } catch (verifyError) {
+        throw { name: "Unauthorized", message: "Google token is invalid or client ID does not match" }
+      }
+
       const payload = ticket.getPayload()
       const { email, name, sub } = payload
 
@@ -83,6 +92,88 @@ class AuthController {
       next(error);
     }
   }
+
+  static async forgotPassword(req, res, next) {
+    try {
+      const email = req.body.email?.trim();
+
+      if (!email) {
+        throw { name: "BadRequest", message: "Email is required" };
+      }
+
+      if (!emailRegex.test(email)) {
+        throw { name: "BadRequest", message: "Invalid email format" };
+      }
+
+      const user = await User.findOne({ where: { email } });
+      if (!user) {
+        throw { name: "NotFound", message: "User not found" };
+      }
+
+      const secret = process.env.JWT_SECRET + user.password;
+      const token = jwt.sign(
+        { email: user.email, id: user.id },
+        secret,
+        { expiresIn: "15m" }
+      );
+      const frontendUrl = process.env.NODE_ENV === "production" 
+        ? "https://travel-planner.raturamadhani.com" 
+        : "http://localhost:5173";
+      const resetLink = `${frontendUrl}/reset-password?token=${token}&id=${user.id}`;
+
+      await sendResetPasswordEmail(user.email, user.username, resetLink);
+
+      res.status(200).json({
+        message: "Password reset link has been sent to your email.",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async resetPassword(req, res, next) {
+    try {
+      const { id, token } = req.body;
+      const newPassword = req.body.newPassword?.trim();
+
+      if (!id || !token || !newPassword) {
+        throw { name: "BadRequest", message: "Missing required fields" };
+      }
+
+      const user = await User.findByPk(id);
+      if (!user) {
+        throw { name: "NotFound", message: "User not found" };
+      }
+
+      const secret = process.env.JWT_SECRET + user.password;
+
+      try {
+        const payload = jwt.verify(token, secret);
+        if (payload.id !== user.id) {
+          throw new Error("Invalid token");
+        }
+      } catch (verifyError) {
+        throw { name: "BadRequest", message: "Token is invalid or has expired" };
+      }
+
+      if (newPassword.length < 6) {
+        throw {
+          name: "BadRequest",
+          message: "Password must be at least 6 characters",
+        };
+      }
+
+      user.password = hashPassword(newPassword);
+      await user.save();
+
+      res.status(200).json({
+        message: "Password has been reset successfully",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
 }
 
 module.exports = AuthController;
