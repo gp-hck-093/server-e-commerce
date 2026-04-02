@@ -136,7 +136,7 @@ class AuthController {
       const frontendUrl =
         process.env.NODE_ENV === "production"
           ? "https://zapshop.erwindw99.com"
-          : "http://localhost:5173";
+          : "https://zapshop.erwindw99.com";
       const resetLink = `${frontendUrl}/reset-password?token=${token}&id=${user.id}`;
 
       await sendResetPasswordEmail(user.email, user.username, resetLink);
