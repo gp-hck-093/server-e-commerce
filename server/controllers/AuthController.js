@@ -135,7 +135,7 @@ class AuthController {
       });
       const frontendUrl =
         process.env.NODE_ENV === "production"
-          ? "https://travel-planner.raturamadhani.com"
+          ? "https://zapshop.erwindw99.com"
           : "http://localhost:5173";
       const resetLink = `${frontendUrl}/reset-password?token=${token}&id=${user.id}`;
 
