@@ -7,10 +7,10 @@ const chatSocket = require("../sockets/chatSocket");
 const server = http.createServer(app);
 
 const io = new Server(server, {
-    cors: {
-        origin: "*", 
-        methods: ["GET", "POST"]
-    }
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
 });
 
 chatSocket(io);
